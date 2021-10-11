@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\SourceCode\\asp.netcorewebapiEF\\asp.netcorewebapiEF\\asp.netcorewebapiEF.csproj": {}
+    "D:\\SourceCode\\practice\\Webapi.net5EF\\asp.netcorewebapiEF\\asp.netcorewebapiEF\\asp.netcorewebapiEF.csproj": {}
   },
   "projects": {
-    "D:\\SourceCode\\asp.netcorewebapiEF\\asp.netcorewebapiEF\\asp.netcorewebapiEF.csproj": {
+    "D:\\SourceCode\\practice\\Webapi.net5EF\\asp.netcorewebapiEF\\asp.netcorewebapiEF\\asp.netcorewebapiEF.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\SourceCode\\asp.netcorewebapiEF\\asp.netcorewebapiEF\\asp.netcorewebapiEF.csproj",
+        "projectUniqueName": "D:\\SourceCode\\practice\\Webapi.net5EF\\asp.netcorewebapiEF\\asp.netcorewebapiEF\\asp.netcorewebapiEF.csproj",
         "projectName": "asp.netcorewebapiEF",
-        "projectPath": "D:\\SourceCode\\asp.netcorewebapiEF\\asp.netcorewebapiEF\\asp.netcorewebapiEF.csproj",
+        "projectPath": "D:\\SourceCode\\practice\\Webapi.net5EF\\asp.netcorewebapiEF\\asp.netcorewebapiEF\\asp.netcorewebapiEF.csproj",
         "packagesPath": "C:\\Users\\KID\\.nuget\\packages\\",
-        "outputPath": "D:\\SourceCode\\asp.netcorewebapiEF\\asp.netcorewebapiEF\\obj\\",
+        "outputPath": "D:\\SourceCode\\practice\\Webapi.net5EF\\asp.netcorewebapiEF\\asp.netcorewebapiEF\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

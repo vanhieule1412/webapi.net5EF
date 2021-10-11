@@ -22,8 +22,12 @@ namespace asp.netcorewebapiEF.Controllers
         }
         //Get: api/theloaidetail/id
         [HttpGet("GetTheloaiDetails/{id}")]
-        public ActionResult<Theloai> GetTheloaiDetails(string id)
+        public async Task<ActionResult<Theloai>> GetTheloaiDetailsAsync(string id)
         {
+            //Explicit Loading
+            var theloaier = await dc.Theloais.SingleAsync(x => x.MaTheLoai == id);
+            dc.Entry(theloaier).Collection(x => x.Saches).Load();
+
             //get Theloai by id
             if (dc.Theloais == null)
             {
@@ -31,10 +35,12 @@ namespace asp.netcorewebapiEF.Controllers
             }
             else
             {
-                return dc.Theloais
-                    .Include(x => x.Saches)
-                        .ThenInclude(sach =>sach.Chitietphieumuons)
-                    .Where(x => x.MaTheLoai == id).FirstOrDefault();
+                //Eager Loading
+                //return dc.Theloais
+                //    .Include(x => x.Saches)
+                //        .ThenInclude(sach =>sach.Chitietphieumuons)
+                //    .Where(x => x.MaTheLoai == id).FirstOrDefault();             
+                return theloaier;
             }
         }
 
@@ -51,6 +57,21 @@ namespace asp.netcorewebapiEF.Controllers
                 return dc.Theloais.FirstOrDefault(x => x.MaTheLoai == id);
             }
         }
+        ////Post: api/theloaidetail
+        //[HttpPost("PostTheloaiDetails/")]
+        //public ActionResult<Theloai> PostTheloaiDetails(Theloai theloai)
+        //{
+        //    //get Theloai by id
+        //    Sach sach = new Sach();
+        //    dc.Theloais.Add(theloai);
+        //    dc.SaveChanges();
+
+        //        return dc.Theloais
+        //            .Include(x => x.Saches)
+        //                .ThenInclude(sach => sach.Chitietphieumuons)
+        //            .Where(x => x.MaTheLoai == id).FirstOrDefault();
+        //    }
+        //}
         [HttpPost]
         public async Task<ActionResult<Theloai>> PostTheloai(Theloai theloai)
         {

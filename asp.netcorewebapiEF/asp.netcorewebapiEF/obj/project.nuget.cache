@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "D5RSNzEjkp3LlSoAVnHTMJ3ZJvuOL+Tjibz9wVYmDGy6RRa8C5EmCYcFT/1H0O/1rL85aGAgT6gpVXyMVJrRuA==",
+  "dgSpecHash": "Es51Asbk8vi/Y7pX4u46PDJqW1ZwKd+aDDnkUB84w0AWRQtu9bNPlutkSgO7my5ybNPFSv8alfD1pw4X16tTpA==",
   "success": true,
-  "projectFilePath": "D:\\SourceCode\\asp.netcorewebapiEF\\asp.netcorewebapiEF\\asp.netcorewebapiEF.csproj",
+  "projectFilePath": "D:\\SourceCode\\practice\\Webapi.net5EF\\asp.netcorewebapiEF\\asp.netcorewebapiEF\\asp.netcorewebapiEF.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\KID\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\KID\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\5.0.10\\microsoft.aspnetcore.jsonpatch.5.0.10.nupkg.sha512",
