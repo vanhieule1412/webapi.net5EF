@@ -57,22 +57,36 @@ namespace asp.netcorewebapiEF.Controllers
                 return dc.Theloais.FirstOrDefault(x => x.MaTheLoai == id);
             }
         }
-        ////Post: api/theloaidetail
-        //[HttpPost("PostTheloaiDetails/")]
-        //public ActionResult<Theloai> PostTheloaiDetails(Theloai theloai)
-        //{
-        //    //get Theloai by id
-        //    Sach sach = new Sach();
-        //    dc.Theloais.Add(theloai);
-        //    dc.SaveChanges();
+        //Post: api/theloaidetail
+        [HttpPost("PostTheloaiDetails/")]
+        public ActionResult<Theloai> PostTheloaiDetails(Theloai theloai)//not complete
+        {
+            //get Theloai by id
+            var a = new Models.Theloai
+            {
+                MaTheLoai = theloai.MaTheLoai,
+                TenTheLoai = theloai.TenTheLoai,
+                MoTaTheLoai = theloai.MoTaTheLoai,
+                Saches = theloai.Saches.Select(x => new Models.Sach {
+                    MaSach=x.MaSach,
+                    TenSach=x.TenSach,
+                    SoLuong=x.SoLuong,
+                    MaNhaXuatBan=x.MaNhaXuatBan,
+                    MaTheLoai=x.MaTheLoai,
+                    Gia=x.Gia,
+                }).ToList()
+            };
 
-        //        return dc.Theloais
-        //            .Include(x => x.Saches)
-        //                .ThenInclude(sach => sach.Chitietphieumuons)
-        //            .Where(x => x.MaTheLoai == id).FirstOrDefault();
-        //    }
-        //}
-        [HttpPost]
+            dc.Theloais.Add(theloai);
+            dc.SaveChanges();
+
+            return dc.Theloais
+                .Include(x => x.Saches)
+                    .ThenInclude(sach => sach.Chitietphieumuons)
+                .Where(x => x.MaTheLoai == theloai.MaTheLoai).FirstOrDefault();
+        }
+    
+    [HttpPost]
         public async Task<ActionResult<Theloai>> PostTheloai(Theloai theloai)
         {
             dc.Theloais.Add(theloai);
@@ -130,3 +144,4 @@ namespace asp.netcorewebapiEF.Controllers
         }
     }
 }
+
