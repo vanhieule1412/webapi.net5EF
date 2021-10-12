@@ -22,7 +22,7 @@ namespace asp.netcorewebapiEF.Controllers
         }
         //Get: api/theloaidetail/id
         [HttpGet("GetTheloaiDetails/{id}")]
-        public async Task<ActionResult<Theloai>> GetTheloaiDetailsAsync(string id)
+        public async Task<ActionResult<Theloai>> GetTheloaiDetails(string id)
         {
             //Explicit Loading
             var theloaier = await dc.Theloais.SingleAsync(x => x.MaTheLoai == id);
@@ -57,36 +57,37 @@ namespace asp.netcorewebapiEF.Controllers
                 return dc.Theloais.FirstOrDefault(x => x.MaTheLoai == id);
             }
         }
+
         //Post: api/theloaidetail
-        [HttpPost("PostTheloaiDetails/")]
-        public ActionResult<Theloai> PostTheloaiDetails(Theloai theloai)//not complete
-        {
-            //get Theloai by id
-            var a = new Models.Theloai
-            {
-                MaTheLoai = theloai.MaTheLoai,
-                TenTheLoai = theloai.TenTheLoai,
-                MoTaTheLoai = theloai.MoTaTheLoai,
-                Saches = theloai.Saches.Select(x => new Models.Sach {
-                    MaSach=x.MaSach,
-                    TenSach=x.TenSach,
-                    SoLuong=x.SoLuong,
-                    MaNhaXuatBan=x.MaNhaXuatBan,
-                    MaTheLoai=x.MaTheLoai,
-                    Gia=x.Gia,
-                }).ToList()
-            };
+        //[HttpPost("PostTheloaiDetails/")]
+        //public ActionResult<Theloai> PostTheloaiDetails(Theloai theloai)
+        //{
+        //    //get Theloai by id
+        //    var a = new Models.Theloai
+        //    {
+        //        MaTheLoai = theloai.MaTheLoai,
+        //        TenTheLoai = theloai.TenTheLoai,
+        //        MoTaTheLoai = theloai.MoTaTheLoai,
+                
+        //        //Saches = theloai.Saches.Select(x => new Models.Sach
+        //        //{
+        //        //    MaSach = x.MaSach,
+        //        //    TenSach = x.TenSach,
+        //        //    SoLuong = x.SoLuong,
+        //        //    Gia = x.Gia,
+        //        //}).ToList()
+        //    };
 
-            dc.Theloais.Add(theloai);
-            dc.SaveChanges();
+        //    dc.Theloais.Add(a);
+        //    dc.SaveChanges();
 
-            return dc.Theloais
-                .Include(x => x.Saches)
-                    .ThenInclude(sach => sach.Chitietphieumuons)
-                .Where(x => x.MaTheLoai == theloai.MaTheLoai).FirstOrDefault();
-        }
-    
-    [HttpPost]
+        //    return dc.Theloais
+        //        .Include(x => x.Saches)
+        //            .ThenInclude(sach => sach.Chitietphieumuons)
+        //        .Where(x => x.MaTheLoai == theloai.MaTheLoai).FirstOrDefault();
+        //}
+
+        [HttpPost]
         public async Task<ActionResult<Theloai>> PostTheloai(Theloai theloai)
         {
             dc.Theloais.Add(theloai);
