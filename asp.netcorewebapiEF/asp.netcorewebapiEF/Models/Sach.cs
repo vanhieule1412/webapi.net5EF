@@ -14,9 +14,9 @@ namespace asp.netcorewebapiEF.Models
 
         public string MaSach { get; set; }
         public string TenSach { get; set; }
-        public int SoLuong { get; set; }
+        public int? SoLuong { get; set; }
         public string TacGia { get; set; }
-        public int NamXuatBan { get; set; }
+        public int? NamXuatBan { get; set; }
         public string NguoiDich { get; set; }
         public string MaTheLoai { get; set; }
         public string MaNhaXuatBan { get; set; }

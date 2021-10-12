@@ -23,6 +23,7 @@ namespace asp.netcorewebapiEF.Models
         public virtual DbSet<Khu> Khus { get; set; }
         public virtual DbSet<Nhaxuatban> Nhaxuatbans { get; set; }
         public virtual DbSet<Phieumuon> Phieumuons { get; set; }
+        public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
         public virtual DbSet<Sach> Saches { get; set; }
         public virtual DbSet<Taikhoandocgium> Taikhoandocgia { get; set; }
         public virtual DbSet<Taikhoanthuthu> Taikhoanthuthus { get; set; }
@@ -34,7 +35,7 @@ namespace asp.netcorewebapiEF.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=(local);Initial Catalog=UngDungQuanLyThuVien;Integrated Security=True;");
             }
         }
@@ -224,6 +225,33 @@ namespace asp.netcorewebapiEF.Models
                     .HasConstraintName("FKPHIEUMUON685748");
             });
 
+            modelBuilder.Entity<RefreshToken>(entity =>
+            {
+                entity.HasKey(e => e.TokenId);
+
+                entity.ToTable("RefreshToken");
+
+                entity.Property(e => e.TokenId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("token_id");
+
+                entity.Property(e => e.ExpiryDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("expiry_date");
+
+                entity.Property(e => e.Token)
+                    .IsRequired()
+                    .HasMaxLength(200)
+                    .IsUnicode(false)
+                    .HasColumnName("token");
+
+                entity.HasOne(d => d.MaTaiKhoaiNavigation)
+                    .WithMany(p => p.RefreshTokens)
+                    .HasForeignKey(d => d.MaTaiKhoai)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_RefreshToken_TAIKHOANTHUTHU");
+            });
+
             modelBuilder.Entity<Sach>(entity =>
             {
                 entity.HasKey(e => e.MaSach)
@@ -236,22 +264,18 @@ namespace asp.netcorewebapiEF.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.HinhAnh)
-                    .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
                 entity.Property(e => e.MaKe)
-                    .IsRequired()
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
                 entity.Property(e => e.MaNhaXuatBan)
-                    .IsRequired()
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
                 entity.Property(e => e.MaTheLoai)
-                    .IsRequired()
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
@@ -259,30 +283,23 @@ namespace asp.netcorewebapiEF.Models
 
                 entity.Property(e => e.NoiDungTomTat).HasMaxLength(255);
 
-                entity.Property(e => e.TacGia)
-                    .IsRequired()
-                    .HasMaxLength(255);
+                entity.Property(e => e.TacGia).HasMaxLength(255);
 
-                entity.Property(e => e.TenSach)
-                    .IsRequired()
-                    .HasMaxLength(255);
+                entity.Property(e => e.TenSach).HasMaxLength(255);
 
                 entity.HasOne(d => d.MaKeNavigation)
                     .WithMany(p => p.Saches)
                     .HasForeignKey(d => d.MaKe)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FKSACH318768");
 
                 entity.HasOne(d => d.MaNhaXuatBanNavigation)
                     .WithMany(p => p.Saches)
                     .HasForeignKey(d => d.MaNhaXuatBan)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FKSACH752561");
 
                 entity.HasOne(d => d.MaTheLoaiNavigation)
                     .WithMany(p => p.Saches)
                     .HasForeignKey(d => d.MaTheLoai)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FKSACH567542");
             });
 
