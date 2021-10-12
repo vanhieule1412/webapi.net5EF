@@ -26,8 +26,8 @@ namespace asp.netcorewebapiEF.Controllers
         {
             //Explicit Loading
             var theloaier = await dc.Theloais.SingleAsync(x => x.MaTheLoai == id);
-            dc.Entry(theloaier).Collection(x => x.Saches).Load();
-
+            dc.Entry(theloaier).Collection(x => x.Saches).Load();//xem những quyển sách có thể loại mình muốn
+            dc.Entry(theloaier).Collection(x => x.Saches).Query().Include(x => x.Chitietphieumuons).Load();//xem những quyển sách đã cho mượn chưa
             //get Theloai by id
             if (dc.Theloais == null)
             {

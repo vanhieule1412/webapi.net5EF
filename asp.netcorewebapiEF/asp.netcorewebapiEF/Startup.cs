@@ -13,6 +13,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using asp.netcorewebapiEF.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication;
+using asp.netcorewebapiEF.Handlers;
 
 namespace asp.netcorewebapiEF
 {
@@ -38,6 +40,8 @@ namespace asp.netcorewebapiEF
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "asp.netcorewebapiEF", Version = "v1" });
             });
+            services.AddAuthentication("Basicauthentication")
+                .AddScheme<AuthenticationSchemeOptions, BasicauthenticationHandler>("Basicauthentication", null);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +57,7 @@ namespace asp.netcorewebapiEF
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
