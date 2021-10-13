@@ -18,7 +18,6 @@ namespace asp.netcorewebapiEF.Models
         }
 
         public virtual DbSet<Chitietphieumuon> Chitietphieumuons { get; set; }
-        public virtual DbSet<Docgium> Docgia { get; set; }
         public virtual DbSet<Ke> Kes { get; set; }
         public virtual DbSet<Khu> Khus { get; set; }
         public virtual DbSet<Nhaxuatban> Nhaxuatbans { get; set; }
@@ -77,46 +76,6 @@ namespace asp.netcorewebapiEF.Models
                     .HasForeignKey(d => d.MaSach)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FKCHITIETPHI151328");
-            });
-
-            modelBuilder.Entity<Docgium>(entity =>
-            {
-                entity.HasKey(e => e.MaDocGia)
-                    .HasName("PK__DOCGIA__F165F9450220F06D");
-
-                entity.ToTable("DOCGIA");
-
-                entity.Property(e => e.MaDocGia)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Cmnd)
-                    .HasMaxLength(50)
-                    .HasColumnName("CMND");
-
-                entity.Property(e => e.DiaChi).HasMaxLength(100);
-
-                entity.Property(e => e.Email)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.GioiTinh)
-                    .IsRequired()
-                    .HasMaxLength(10);
-
-                entity.Property(e => e.NamSinh).HasColumnType("date");
-
-                entity.Property(e => e.SoDienThoai).HasMaxLength(50);
-
-                entity.Property(e => e.TenDocGia)
-                    .IsRequired()
-                    .HasMaxLength(100);
-
-                entity.HasOne(d => d.MaTaiKhoaiNavigation)
-                    .WithMany(p => p.Docgia)
-                    .HasForeignKey(d => d.MaTaiKhoai)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FKDOCGIA564624");
             });
 
             modelBuilder.Entity<Ke>(entity =>
@@ -227,13 +186,12 @@ namespace asp.netcorewebapiEF.Models
 
             modelBuilder.Entity<RefreshToken>(entity =>
             {
-                entity.HasKey(e => e.TokenId);
+                entity.HasKey(e => e.TokenId)
+                    .HasName("PK__RefreshT__CB3C9E17D96DC15E");
 
                 entity.ToTable("RefreshToken");
 
-                entity.Property(e => e.TokenId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("token_id");
+                entity.Property(e => e.TokenId).HasColumnName("token_id");
 
                 entity.Property(e => e.ExpiryDate)
                     .HasColumnType("datetime")
@@ -310,11 +268,6 @@ namespace asp.netcorewebapiEF.Models
 
                 entity.ToTable("TAIKHOANDOCGIA");
 
-                entity.Property(e => e.MaDocGia)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.MatKhau)
                     .IsRequired()
                     .HasMaxLength(50)
@@ -328,18 +281,6 @@ namespace asp.netcorewebapiEF.Models
                 entity.Property(e => e.TrangThai)
                     .IsRequired()
                     .HasMaxLength(50);
-
-                entity.HasOne(d => d.MaDocGiaNavigation)
-                    .WithMany(p => p.Taikhoandocgia)
-                    .HasForeignKey(d => d.MaDocGia)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FKTAIKHOANDO410979");
-
-                entity.HasOne(d => d.MaTaiKhoaiNavigation)
-                    .WithMany(p => p.Taikhoandocgia)
-                    .HasForeignKey(d => d.MaTaiKhoai)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FKTAIKHOANDO997262");
             });
 
             modelBuilder.Entity<Taikhoanthuthu>(entity =>
@@ -348,11 +289,6 @@ namespace asp.netcorewebapiEF.Models
                     .HasName("PK__TAIKHOAN__AD7C652C938C0D44");
 
                 entity.ToTable("TAIKHOANTHUTHU");
-
-                entity.Property(e => e.MaThuThu)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
 
                 entity.Property(e => e.MatKhau)
                     .IsRequired()
@@ -367,12 +303,6 @@ namespace asp.netcorewebapiEF.Models
                 entity.Property(e => e.TrangThai)
                     .IsRequired()
                     .HasMaxLength(50);
-
-                entity.HasOne(d => d.MaThuThuNavigation)
-                    .WithMany(p => p.Taikhoanthuthus)
-                    .HasForeignKey(d => d.MaThuThu)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FKTAIKHOANTH192785");
             });
 
             modelBuilder.Entity<Thedocgium>(entity =>

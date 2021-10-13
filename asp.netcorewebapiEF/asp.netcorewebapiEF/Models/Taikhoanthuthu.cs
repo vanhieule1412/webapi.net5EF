@@ -9,10 +9,8 @@ namespace asp.netcorewebapiEF.Models
     {
         public Taikhoanthuthu()
         {
-            Docgia = new HashSet<Docgium>();
             Phieumuons = new HashSet<Phieumuon>();
             RefreshTokens = new HashSet<RefreshToken>();
-            Taikhoandocgia = new HashSet<Taikhoandocgium>();
             Thedocgia = new HashSet<Thedocgium>();
         }
 
@@ -20,13 +18,9 @@ namespace asp.netcorewebapiEF.Models
         public string TenTaiKhoai { get; set; }
         public string MatKhau { get; set; }
         public string TrangThai { get; set; }
-        public string MaThuThu { get; set; }
 
-        public virtual Thuthu MaThuThuNavigation { get; set; }
-        public virtual ICollection<Docgium> Docgia { get; set; }
         public virtual ICollection<Phieumuon> Phieumuons { get; set; }
         public virtual ICollection<RefreshToken> RefreshTokens { get; set; }
-        public virtual ICollection<Taikhoandocgium> Taikhoandocgia { get; set; }
         public virtual ICollection<Thedocgium> Thedocgia { get; set; }
     }
 }

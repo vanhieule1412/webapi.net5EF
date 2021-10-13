@@ -127,3 +127,7 @@ D:\SourceCode\practice\webapi.net5EF\asp.netcorewebapiEF\asp.netcorewebapiEF\obj
 D:\SourceCode\practice\webapi.net5EF\asp.netcorewebapiEF\asp.netcorewebapiEF\obj\Debug\net5.0\ref\asp.netcorewebapiEF.dll
 D:\SourceCode\practice\webapi.net5EF\asp.netcorewebapiEF\asp.netcorewebapiEF\obj\Debug\net5.0\asp.netcorewebapiEF.pdb
 D:\SourceCode\practice\webapi.net5EF\asp.netcorewebapiEF\asp.netcorewebapiEF\obj\Debug\net5.0\asp.netcorewebapiEF.genruntimeconfig.cache
+D:\SourceCode\practice\webapi.net5EF\asp.netcorewebapiEF\asp.netcorewebapiEF\obj\Debug\net5.0\asp.netcorewebapiEF.csproj.AssemblyReference.cache
+D:\SourceCode\practice\webapi.net5EF\asp.netcorewebapiEF\asp.netcorewebapiEF\bin\Debug\net5.0\jose-jwt.dll
+D:\SourceCode\practice\webapi.net5EF\asp.netcorewebapiEF\asp.netcorewebapiEF\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\SourceCode\practice\webapi.net5EF\asp.netcorewebapiEF\asp.netcorewebapiEF\bin\Debug\net5.0\System.Text.Json.dll

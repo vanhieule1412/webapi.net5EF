@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +15,9 @@ using asp.netcorewebapiEF.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication;
 using asp.netcorewebapiEF.Handlers;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace asp.netcorewebapiEF
 {
@@ -38,11 +41,39 @@ namespace asp.netcorewebapiEF
                 .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "asp.netcorewebapiEF", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "QuanLyThuVien", Version = "v1" });
             });
             services.AddAuthentication("Basicauthentication")
                 .AddScheme<AuthenticationSchemeOptions, BasicauthenticationHandler>("Basicauthentication", null);
-        }
+
+            var jwtSection = Configuration.GetSection("JWTSettings");
+            services.Configure<JWTSettings>(jwtSection);
+
+            //to validate the token which has been sent by clients
+            var appSettings = jwtSection.Get<JWTSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secretkey);
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = true;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
+            
+            // /swagger/v1.0/swager.json
+            }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -60,7 +91,11 @@ namespace asp.netcorewebapiEF
             app.UseAuthentication();
 
             app.UseAuthorization();
+            app.UseSwagger();
+            app.UseSwaggerUI(x => {
 
+                x.SwaggerEndpoint("swagger/v1.0/swager.json", "Quản lý thư viện");
+            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
